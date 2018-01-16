@@ -1,0 +1,124 @@
+﻿<meta charset="utf-8" emacsmode="-*- markdown -*-"><link rel="stylesheet" href="https://casual-effects.com/markdeep/latest/apidoc.css?">
+                          **Notes on Topology and Functional Analysis**
+
+## Metric spaces
+
+!!! Note
+    A **metric space** $(X,d)$ is a set $X$ and a metric $d$ on the set $X$.
+In simpler words, a metric space is a set in which it makes sense to compute distance between elements.
+
+Why do we care about metric spaces ? They are a major building block in analysis. For instance, without the concept of metric in a set, we cannot define the notion of convergence
+
+!!! Note
+    A **metric** on a set $X$ is a function $d : X \times X \mapsto \Real$, satisfying 3 properties : 
+    - Nonnegativity : $\forall x,y \in X, d(x,y) \geq 0$. Also, $d(x,y) = 0$ iff $x=y$
+    - Symmetry : $\forall x,y \in X, d(x,y) = d(y,x)$
+    - Triangular inequality : $\forall x,y,z \in X, d(x,y) + d(y,z) \geq d(x,z)$
+
+!!! Tip
+    Examples : 
+
+    a) The standard distance between two real numbers $d(x,y) = |x-y|$ on the $\Real$ line is a metric space
+
+    b) Let $x=(x_1, x_2)$ and $y=(y_1, y_2)$. The Euclidean distance $d(x,y) = \sqrt{(x_1 - y_1)^2+(x_2 - y_2)^2}$ on the set $\Real^2$ is a metric space
+
+    c) Let $x=(x_1, x_2)$ and $y=(y_1, y_2)$. The distance $d(x,y) = |x_1 - y_1|+|x_2 - y_2|$, called the Manhattan distance, is another metric space on the set $\Real^2$
+
+Euclidean spaces are metric spaces equipped with the standard Euclidean metric
+
+## Open Ball
+
+Let $x_0 \in \Real^n$ and $r \in \Real^+$. 
+
+!!! Note
+    An **open ball** of radius $r$ centered at $x_0$, denoted by $B_r(x_0)$, is defined as the set $\{x \in \Real^n | d(x, x_0) < r\}$.
+
+## Classification of points in a set
+
+Let $A$ be any subset of $\Real^n$.
+
+Let $A^c$ be the complement of $A$ relative to $\Real^n$, basically everything that is not in $A$. $A^c$ is a shortcut for the more rigorous $\Real^n \smallsetminus A$.
+
+!!! Note
+    A point $x_0 \in A$ is called an **interior point** of $A$, if there exists an open ball $B_r(x_0) \subseteq A$.
+    The set of all the interior points of $A$, denoted by $A^o$, is called the **interior of $A$**.
+
+    A point $x_0 \in A^c$ is called an **exterior point** of $A$, if there exists an open ball $B_r(x_0) \subseteq A^c$.
+    The set of all the exterior points of $A$, denoted by $A^e$, is called the **exterior of $A$**.
+
+    A point $x_0 \in \Real^n$ is called a **boundary point** of $A$, if in any open ball $B_r(x_0)$, there always exists a point $x_1 \in A$ and a point $x_2 \in A^c$.
+    The set of all the boundary points of $A$, denoted by $\partial A$, is called the **boundary of $A$**.
+
+    A point $x_0 \in \Real^n$ is called a **limit point** of $A$, if in any open ball $B_r(x_0)$, there is always a point $x$ other than $x_0$ in $A$.
+    The set of all the limit points, denoted by $A'$, is called the **derived set of $A$**.
+
+    A point $x_0 \in A$ is called an **isolated point** of $A$, if there exists an open ball $B_r(x_0)$ in which there is no point $x$ other than $x_0$ in $A$.
+
+    The union of $A$ and its boundary ($A \cup \partial A$), denoted by $\bar{A}$, is called the **closure of $A$**.
+
+!!! Tip
+    A lot of definitions here, it might start to get confusing, so a drawing could help :
+
+    ![](PointSet.png)
+
+           | $\in A$? | Interior | Exterior | Boundary | Limit | Isolated
+    :-----:|:--------:|:--------:|:--------:|:--------:|:-----:|:--------:
+    $p_0$  |    ✓    |    ✓    |    ✗    |    ✗    |   ✓  |    ✗
+    $p_1$  |    ✓    |    ✓    |    ✗    |    ✓    |   ✓  |    ✗
+    $p_2$  |    ✗    |    ✗    |    ✓    |    ✗    |   ✗  |    ✗
+    $p_3$  |    ✓    |    ✓    |    ✗    |    ✓    |   ✗  |    ✓
+
+    The table above sums up the type of points in the drawing
+
+We now have an understanding of the differents types of points in a set. The sets associated to these types of points have some interesting properties
+
+- $A^o \subseteq A' \subseteq \bar{A}$
+
+Proof : 
+
+- $A^o \subseteq A$
+
+Proof : 
+
+- $A^e \subseteq A^c$
+
+Proof : 
+
+- $\Real^n = A^o \cup \partial A \cup A^e$
+
+Proof : 
+
+## Open sets and closed sets
+
+A point set $A \subseteq \Real^n$ is called an **open set**, if for all x \in A, there is an open ball $B_r(x) \subseteq A$.
+
+A point set $A \subseteq \Real^n$ is called a **closed set**, if it contains its entire boundary, namely, $\partial A \subseteq A$.
+
+(1) $A$ is an open set if and only if $A \cap \partial A = \emptyset$.
+
+(2) $A$ is an open set if and only if $A = A^o$.
+
+(3) $A$ is a closed set if and only if $A = \bar{A}$.
+
+## Neighborhood
+
+## Completeness of a metric space
+
+Cauchy sequence
+Complete metric space
+
+## Topological Spaces
+
+## Topological Equivalence
+
+## Manifolds
+
+## Hilbert spaces
+
+## Banach spaces
+
+## ...
+
+<script>markdeepOptions={tocStyle:'medium'};</script>
+<!-- Markdeep: -->
+<script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?"></script>
