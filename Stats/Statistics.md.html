@@ -1,0 +1,97 @@
+﻿<meta charset="utf-8" emacsmode="-*- markdown -*-"><link rel="stylesheet" href="https://casual-effects.com/markdeep/latest/apidoc.css?">
+                          **Notes on Statistics**
+
+## A bit of vocabulary
+
+!!! Note
+    **Data** : Any collected observations
+
+!!! Note
+    **Statistics** : The analysis and interpretation of data
+
+!!! Note
+    **Population** : The complete set of elements being studying
+
+!!! Note
+    **Samples** : Some subset of a population picked randomly
+
+In statistics, we are working on samples because we don't have access to the whole population
+
+We denote by $n$ the number of samples, and $N$ the population size
+
+## An example to build some motivation
+
+The following example is stealed and freely adapted from an ebook called "Statistiques pour statophobes" ("Statistics pour statophobics" in English), first because I think this example is excellent, second because the whole book is excellent too (granted you can read French of course)
+
+But as we saw earlier, it's not enough. If the data is concentrated around the mean, the mean makes sense. But if if there are big gaps in
+the sample, the average makes no sense. So we have to look at the sample. First thing we could do is take the range (maximum sample - minimum sample)
+of the samples to see how data is spread around the mean. But a problem arises : in data sets, it's not rare to find data points isolated (think about bad mesurement in a lab for instance). So this idea of taking thinking about how data is preaded around the
+mean is good but taking the range does not seem enough. 
+One thing we could do : compute the weighted average of distance between samples and the mean. We'd need to use the absolute value of these
+distance to prevent them from cancelling out. This is called the Mean absolute deviation (MAD). What does is it concretely ?
+If you pick a sample at random without your data, it is en moyenne plus or minus the MAD around the mean.
+In the example we choose with basket ball teams, a large MAD would indicate most of the samples are far from the mean
+Great isn't it, this MAD ? Too bad it's not used in statistics. We replace it with the variance, more useful to us
+
+The variance is easy to understand when you know about the MAD. 
+The sample variance $s^2$ uses (n – 1)  and not n in the denominator. Let's see the formula to compute the sample variance :
+$s^2 = sum(x_i – xbar)^2 / (n – 1)$
+The popoulation variance is $sigma^2 = sum(x_i – mu)^2 / N$  
+It looks a lot like the MAD. We get rid of the absolute values and replace them with squares. No big deal. Oh maybe one, a big one actually.
+If the data are of unit u, a quick dimensional analysis of the variance give us unit u^2. How to interpret that to determine how the data 
+is spread ? Impossible, it makes no sense to us, and it's normal. You might say "Why the hell do we care about variance ?". If you look at
+the formulas of the mean and the variance, you'll see they are closely related. Actually they both are average, the variance having its elements
+squared. We'll see it later the implications of that, and how we can use the variance to analyze data sets. 
+
+    Why n-1 in the denominator of the samples variance and not n ?
+Le problème vient du fait que m n'est pas la véritable valeur de m, mais seulement son estimation basée sur
+les données de l'échantillon. Or, par définition, la moyenne d'une série de données est la valeur qui minimise les
+écarts entre les données et cette valeur. Ceci reste vrai pour les carrés des écarts. Il s'ensuit que le terme  (xi - m
+)2 est le plus petit possible avec les valeurs xi de l'échantillon. Si on avait pu disposer de la véritable valeur de m,
+le terme  (xi - m )2 aurait forcément été plus grand (puisque m est différent de m). Bref, procéder en utilisant m
+(la seule valeur dont on dispose en pratique !) amène à un s2 qui va systématiquement sous estimer s2.
+Pour contrebalancer cet effet, il faut donc augmenter le numérateur (ou diminuer le dénominateur). Il a été
+démontré (brillamment je suppose) que la meilleure façon possible était de remplacer n par (n - 1) au
+dénominateur. Cette façon de procéder a pour avantage que l'effet est sensible pour les petites valeurs de n (pour
+lesquelles l'écart entre m et m est probablement grand, donc la sous estimation importante) et il devient
+négligeable lorsque n grandit (la correction étant alors moins nécéssaire car l'estimation de m par m devient de
+plus en plus fiable).
+
+To understand the variance intuitevely, we need another tool : the standard deviation.
+
+The standard deviation is simply the squared root of the variance. With it, the unit goes back to u, and it becomes way easier to 
+understand how samples are spread around the mean compared to the variance. It can be interpreted just like the MAD. Closely grouped data 
+will have a low standard deviation, spread out data will have a high standard deviation
+The sample standard deviation is denoted $s$.
+The population standard deviation is denoted $sigma$.
+
+68–95–99.7 rule
+
+.....
+
+//////////////////////////
+
+Moment of a random variable : expected value of a power of the random variable
+= sum(x^n*p(x))
+
+Moments of a distribution
+
+Parameter	Moment	Meaning
+Mean		1		Measure of central location
+Variance	2		Measure of dispersion (how data is spread out around the mean)
+Skew		3		Measure of asymmetry
+Kurtosis	4		Measure of peakedness
+
+Type of moment :
+
+- Raw moment (moment about the origin)
+	mu'(i) = E[(X-0)^i] = E[X^i]
+- Central moment (moment about the mean)
+	mu'(i) = E[(X-mu)^i]
+
+Mean  : mu = E(X) = sum(pi*xi)		(= first raw moment)
+Variance : var = E(X-mu)^2 (=second central moment)
+
+<script>markdeepOptions={tocStyle:'medium'};</script>
+<!-- Markdeep: -->
+<script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?"></script>
