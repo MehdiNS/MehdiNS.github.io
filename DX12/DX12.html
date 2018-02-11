@@ -1,0 +1,96 @@
+﻿<meta charset="utf-8" emacsmode="-*- markdown -*-"><link rel="stylesheet" href="https://casual-effects.com/markdeep/latest/apidoc.css?">
+                          **Notes on DirectX 12**
+
+## Definitions
+
+!!! Note
+    **Resource** : Term used in DirectX to abstract the usage of GPU physical memory. Resources require GPU virtual address space to access physical memory.
+
+!!! Note
+    **Descriptor** : Small data block used to describe a resource to the GPU. 
+
+!!! Note
+    **Descriptor heap** :  Collection of contiguous allocations of descriptors, one allocation per descriptor.
+	
+!!! Note
+    **Descriptor handle** : The *unique* address of a descriptor. *CPU handles* are for immediate use, such as as copying where both the source of destination need to be identified. *GPU handles* are NOT for immediate use, they identify memory locations from a command list, for use at GPU execution time
+
+!!! Note
+    **PSO (Pipeline State Object)** : Entity containing everything that control the state of the graphics pipeline 
+	
+!!! Note
+    **RS (Root signature)** : Array of **root parameters** that describe the resources the shaders expect for a draw call. It has a maximal size of 64 DWORD. It can be seen as the API function signature of our draw calls. In other words, the RS only defines which resources the application will bind to the pipeline, but it does not actually do any resource binding.
+
+!!! Note
+    **Root parameter** : Term used to describe either a **root constant**, a **root descriptor**, or a **descriptor table**
+
+!!! Note
+    **Root constant** : Resource of 1 DWORD, stored directly in the RS. Should be used to store data accessed/modified the most, like the time for instance.
+	
+!!! Note
+    **Root descriptor** : Cost of 2 DWORD in the RS. Requires an indirection to get the resource data. 
+
+!!! Note
+    **Descriptor table** : Table referencing a continuous range in the descriptor heap to identify the resources to be bound
+
+## Hello World pseudocode
+
+## Memory and resource binding in DX12
+
+In DX11, the driver was responsible for predicting and tracking resources usage patterns. 
+In DX12, this opaque system is gone and it's now the programmer's job to handle the binding, the inspection of resources, and the synchronisation
+mapped memory
+
+DX12 exposes GPU memory using the heap interface. 3 types of resources that use different methods to allocate
+GPU  memory to a resource : 
+* Committed resources
+* Placed resources
+* Reserved resources
+
+The MSND website explains these better I could myself. *Copy pasta begins*
+
+### Committed Resources
+
+Committed resources are the most common idea of D3D resources over the generations. Creating such a resource allocates virtual address range, an implicit heap large enough to fit the whole resource, and commits the virtual address range to the physical memory encapsulated by the heap. The implicit heap properties must be passed to match functional parity with previous D3D versions.
+
+### Reserved Resources
+
+Reserved resources are equivalent to D3D11 tiled resources. On their creation, only a virtual address range is allocated and not mapped to any heap. The application will map such resources to heaps later. The capabilities of such resources are currently unchanged over D3D11, as they can be mapped to a heap at a 64KB tile granularity with UpdateTileMappings.
+
+### Placed Resources
+
+New for D3D12, applications may create heaps separate from resources. Afterwards, the application may locate multiple resources within a single heap. This can be done without creating tiled or reserved resources, enabling the capabilities for all resource types able to be created directly by applications. Multiple resources may overlap, and the application must use the TiledResourceBarrier to re-use physical memory correctly.
+
+*End of copy pasta*
+
+### Which kind of resource should I use ?
+
+As always, it depends.
+
+### Residency
+
+Yada yada yada
+
+## Synchronisation
+
+Yada yada yada
+
+## GPU Open tips
+
+* 04: Use CreateCommittedResource for large key objects like render targets and depth buffers.
+* 07: Keep your root descriptor set small and place most frequently changed entries first.
+* 17: Order root signature parameters by change frequency (most frequent to least frequent).
+* 27: Keep your descriptor sets constant, reference resources that belong together in the same set.
+* 36: Use as few root signature slots as possible. Frequently updated slots should be grouped at the beginning of the signature
+* 44: Try to make root signatures as small as possible (create multiple root signatures if needs be).
+* 49: If using multiple root signatures, order/batch draw calls by root signature.
+* 54: Only constants or constant buffers changing every draw should be in the root signature.
+
+## Sources
+
+GPU Open, MSDN, Frank Luna book, 3dgep blog, gamedevpensieve....
+I'll put links here later
+
+<script>markdeepOptions={tocStyle:'medium'};</script>
+<!-- Markdeep: -->
+<script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?"></script>
